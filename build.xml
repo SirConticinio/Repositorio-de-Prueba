@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<project name="ProbandoAnt" default="pordefecto" basedir="." >
+	<!-- propiedades globales del proyecto -->
+	<property name="fuente" value="./src" />
+	<property name="destino" value="./classes" />
+	<property name="lib" value="./lib" />
+	<property name="documentacion" value="./doc" />
+	<property name="titulo" value="Mi documentacion" />
+
+	<target name="limpiar">
+		<delete dir="${destino}"/>
+	</target>
+
+	<target name="compilar" depends="limpiar">
+		<mkdir dir="${destino}"/>
+		<javac srcdir="${fuente}" destdir="${destino}" includeantruntime="false"/>
+	</target>
+
+	<target name="documentar (BORRAR ANTES DE MANDAR)">
+		<mkdir dir="${documentacion}" />
+		<javadoc sourcepath="${fuente}" classpath="${lib}"
+			packagenames="*" destdir="${documentacion}"
+			verbose="true" author="true"
+			access="private" splitindex="true"
+			version="true" windowtitle="${titulo}"
+			doctitle="${titulo}" />
+	</target>
+
+	<target name="ejecutar" depends="compilar">
+		<java classname="HolaAlumnos">
+			<classpath>
+				<pathelement path="${destino}" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="pordefecto" depends="ejecutar"/>
+
+</project>
